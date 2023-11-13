@@ -1,0 +1,47 @@
+
+
+
+<h1 align="center">List authors </h1>
+<center>
+    <p>Search author by number of books</p>
+    <form action="{{path('author_Search')}}">
+        <label>Min Number</label>
+        <input type="number" name="min">
+        <label>Max Number</label>
+        <input type="number" name="max">
+        <input type="submit" value="Search">
+    </form>
+</center>
+<table align="center" border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Number of books</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for author in authors %}
+        <tr>
+            <td>{{ author.username }}</td>
+            <td>{{ author.email}}</td>
+            <td>{{ author.nb_books}}</td>
+            <td>
+                <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
+                <a href="{{ path('author_delete', {'id': author.id}) }}">delete</a>
+            </td>
+       
+        </tr>
+    {% else %}
+        <tr>
+            <td>no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<center>
+    <p>Delete authors whose number of books equals 0 <a href="{{ path('author_DeleteDQL') }}">Delete</a>  </p> 
+    <p><a href="{{ path('add_author') }}">Create new</a></p>
+</center>
+

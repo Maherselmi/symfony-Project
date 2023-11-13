@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Details</title>
+</head>
+<body>
+    <h1>Author Details</h1>
+    {% if author %}
+        <p>username : {{ author.username }}</p>
+        <p>picture : <img  width='100'  src='{{ asset(author.picture) }}' alt="author picture" /> </p>
+
+        <p>email : {{ author.email }}</p>
+        <p>Number of books : {{ author.nb_books }}</p>
+
+    {% else %}
+        <p>Auteur non trouvé.</p>
+    {% endif %}
+</body>
+</html>

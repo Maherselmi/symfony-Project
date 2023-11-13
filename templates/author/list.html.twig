@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of Authors</title>
+</head>
+<body>
+    <h1>List of Authors</h1>
+
+
+
+    <p>Number of Authors: {{ authors|length }}</p>
+
+
+    {% if authors is defined and authors|length > 0 %}
+
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Picture</th>
+
+                <th>Username</th>
+                <th>Email</th>
+                <th>Number of Books</th>
+                <th>Author details</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% set totalBooks = 0 %} {# Initialisation de la variable totalBooks à 0 #}
+
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td><img  width='100'  src='{{asset( author.picture )}}' alt="author picture" /></td>
+
+                    <td>{{ author.username |upper }}</td>
+                    <td>{{ author.email }}</td>
+                    <td>{{ author.nb_books }}</td>
+                    {% set totalBooks = totalBooks + author.nb_books %} {# Ajout du nombre de livres de cet auteur au total #}
+                    <td>
+                        <a href="{{ path('author_details', {'id': author.id}) }}">details</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total Number of Books by All Authors: {{ totalBooks }}</p> {# Afficher le total des livres après la boucle #}
+
+    {% else %}
+    <p>No authors found.</p>
+{% endif %}
+</body>
+</html>

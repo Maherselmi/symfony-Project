@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book index{% endblock %}
+
+{% block body %}
+    <h1>List books</h1>
+    {{ form_start(f)}}
+    <b>{{ form_label(f.ref)}}:</b>
+    {{ form_widget(f.ref)}}
+    {{ form_widget(f.Search)}}
+    {{ form_end(f)}}
+    <table class="table" border="2px">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>PublicationDate</th>
+                <th>Published</th>
+                <th>Category</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationDate ? book.publicationDate|date('F d, Y') : '' }}</td>
+                <td>{{ book.published ? 'Yes' : 'No' }}</td>
+                <td>{{ book.category }}</td>
+                <td>
+                    <a href="{{ path('book_details', {'id': book.ref}) }}">show</a>
+                    <a href="{{ path('book_edit', {'id': book.ref}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('add_book') }}">Create new</a>
+{% endblock %}
